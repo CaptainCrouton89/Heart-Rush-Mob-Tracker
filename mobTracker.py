@@ -260,7 +260,7 @@ class MobShelf(tk.Frame):
         
         self.bt_vigor = DieButton(vigor_speed, value=config["vigor"], prefix="d")
         self.bt_vigor.configure(bg="RosyBrown1")
-        self.bt_speed = UpDownButton(vigor_speed, value=config["speed"], mod=5, prefix="SPD: ")
+        self.bt_speed = UpDownButton(vigor_speed, value=config["speed"], mod=5, prefix="SPD: ", highlight_on_click=False)
 
         self.bt_vigor.grid(row=0, column=0, sticky="nsew")
         self.bt_speed.grid(row=1, column=0, sticky="nsew")
@@ -369,13 +369,15 @@ class MobShelf(tk.Frame):
 
 class UpDownButton(tkm.Button):
 
-    def __init__(self, master, command=None, value=0, mod=1, prefix="", width=None, inverted=False, sc=c.SELECTED, dc=c.UNSELECTED):
+    def __init__(self, master, command=None, value=0, mod=1, prefix="", width=None, inverted=False, sc=c.SELECTED, dc=c.UNSELECTED,
+                    highlight_on_click=True):
         super().__init__(master, command=command, takefocus=0, width=width)
         self.sc = sc
         self.dc = dc
         self.prefix = prefix
         self.val = value
         self.mod = mod
+        self.hoc = highlight_on_click
         self.selected = False
         if inverted:
             self.mod *= -1
@@ -398,7 +400,7 @@ class UpDownButton(tkm.Button):
 
     def increase(self, event=None):
         self.val += 1 * self.mod
-        if not self.selected:
+        if not self.selected and self.hoc:
             self.select()
         self.refresh()
 
