@@ -19,17 +19,6 @@ default_mob = {
             "cun_mod": 0,
             "def": 0,
             "notes": ""
-        }
-
-key_bindings = {
-    "new shelf": "<Command-n>",
-    "next turn": "<Command-t>",
-    "delete all shelves": "<Command-Shift-BackSpace>",
-    "delete selected shelf": "<Command-BackSpace>",
-    "roll dice": "<Command-r",
-    "copy selected shelf": "<Command-c>",
-    "save encounter": "<Command-s>",
-    "load encounter from file": "<Command-o>",
 }
 
 vigor_scalar = [
@@ -51,9 +40,17 @@ class TrackerApp():
         self.root.bind("<Command-t>", self.next_turn)
         self.root.bind("<Command-Shift-BackSpace>", self.delete_all)
         self.root.bind("<Command-r>", self.roll)
-        self.root.bind("<Command-Shift-d>", self.copy_selected)
+        self.root.bind("<Command-d>", self.copy_selected)
         self.root.bind("<Command-s>", self.save_encounter)
         self.root.bind("<Command-o>", self.load_encounter)
+
+        self.root.bind("<Control-n>", self.new_shelf)
+        self.root.bind("<Control-t>", self.next_turn)
+        self.root.bind("<Control-Shift-BackSpace>", self.delete_all)
+        self.root.bind("<Control-r>", self.roll)
+        self.root.bind("<Control-d>", self.copy_selected)
+        self.root.bind("<Control-s>", self.save_encounter)
+        self.root.bind("<Control-o>", self.load_encounter)
 
         # self.root.bind("<Command-/>", self._focus)
 
@@ -96,7 +93,7 @@ class TrackerApp():
             ********* SHELF COMMANDS ******************************     \n\n\
             next shelf              : <Tab>                             \n\
             new shelf               : <Alt-n>                           \n\
-            duplicate shelf:        : <Command-Shift-d>                       \n\
+            duplicate shelf:        : <Command-d>                       \n\
             delete selected shelf   : <Command-BackSpace>               \n\
             delete all shelves      : <Command-Shift-BackSpace>         \n\
             \n\n\
@@ -106,10 +103,10 @@ class TrackerApp():
             choose agility stance   : <a>                               \n\
             choose cunning stance   : <c>                               \n\
             choose defense stance   : <d>                               \n\
-            apply weakened          : <Command-m>                       \n\
-            apply off-balanced      : <Command-a>                       \n\
-            apply dazed             : <Command-c>                       \n\
-            apply misc debuff       : <Command-d>                       \n\
+            apply weakened          : <Shift-m>                       \n\
+            apply off-balanced      : <Shift-a>                       \n\
+            apply dazed             : <Shift-c>                       \n\
+            apply misc debuff       : <Shift-d>                       \n\
             \n\n\
             ********* MOB BUILDING ********************************     \n\n\
             decrease by 1           : <M1>                              \n\
@@ -204,6 +201,7 @@ class MobShelf(tk.Frame):
         self.columnconfigure(3, weight=0)
 
         self.bind("<Command-BackSpace>", self.delete)
+        self.bind("<Control-BackSpace>", self.delete)
 
         content = self.add_widgets()
         self.fill_content(content, config)
@@ -302,10 +300,10 @@ class MobShelf(tk.Frame):
         self.bind("<c>", self.cunning.bt_die.select)
         self.bind("<d>", self.defense.bt_def.select)
 
-        self.bind("<Command-m>", self.might.bt_pen.increase)
-        self.bind("<Command-a>", self.agility.bt_pen.increase)
-        self.bind("<Command-c>", self.cunning.bt_pen.increase)
-        self.bind("<Command-d>", self.defense.bt_pen.increase)
+        self.bind("<M>", self.might.bt_pen.increase)
+        self.bind("<A>", self.agility.bt_pen.increase)
+        self.bind("<C>", self.cunning.bt_pen.increase)
+        self.bind("<D>", self.defense.bt_pen.increase)
 
         self.might.grid(row=0, column=0, sticky="nsew")
         self.agility.grid(row=0, column=1, sticky="nsew")
@@ -385,6 +383,11 @@ class UpDownButton(tkm.Button):
         self.bind("<Shift-Button-1>", self.increase)
         self.bind("<Command-Shift-Button-1>", self.large_increase)
         self.bind("<Command-Button-1>", self.large_decrease)
+
+        self.bind("<Button-1>", self.decrease)
+        self.bind("<Shift-Button-1>", self.increase)
+        self.bind("<Control-Shift-Button-1>", self.large_increase)
+        self.bind("<Control-Button-1>", self.large_decrease)
 
     def refresh(self):
         self.configure(text=self.get_text())
