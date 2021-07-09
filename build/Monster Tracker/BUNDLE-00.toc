@@ -1,0 +1,4 @@
+([('Monster Tracker',
+   '/Users/silasrhyneer/Documents/Code/HeartRush/tkinter-app/dist/Monster '
+   'Tracker',
+   'EXECUTABLE')],)
