@@ -40,7 +40,7 @@ class TrackerApp():
         self.root.bind("<Command-t>", self.next_turn)
         self.root.bind("<Command-Shift-BackSpace>", self.delete_all)
         self.root.bind("<Command-r>", self.roll)
-        self.root.bind("<Command-d>", self.copy_selected)
+        self.root.bind("<Command-v>", self.copy_selected)
         self.root.bind("<Command-s>", self.save_encounter)
         self.root.bind("<Command-o>", self.load_encounter)
 
@@ -48,7 +48,7 @@ class TrackerApp():
         self.root.bind("<Control-t>", self.next_turn)
         self.root.bind("<Control-Shift-BackSpace>", self.delete_all)
         self.root.bind("<Control-r>", self.roll)
-        self.root.bind("<Control-d>", self.copy_selected)
+        self.root.bind("<Control-v>", self.copy_selected)
         self.root.bind("<Control-s>", self.save_encounter)
         self.root.bind("<Control-o>", self.load_encounter)
 
@@ -86,6 +86,7 @@ class TrackerApp():
         keybind_win.title("Keybinds")
         text = tk.Label(keybind_win, anchor='w', justify=tk.LEFT, text=
             "\n\n\
+            Command -> Control on Windows machines \n\n\
             ********* FILE COMMANDS *******************************     \n\n\
             save encounter          : <Command-s>                       \n\
             load encounter          : <Command-o>                       \n\
@@ -93,7 +94,7 @@ class TrackerApp():
             ********* SHELF COMMANDS ******************************     \n\n\
             next shelf              : <Tab>                             \n\
             new shelf               : <Alt-n>                           \n\
-            duplicate shelf:        : <Command-d>                       \n\
+            duplicate shelf:        : <Command-v>                       \n\
             delete selected shelf   : <Command-BackSpace>               \n\
             delete all shelves      : <Command-Shift-BackSpace>         \n\
             \n\n\
